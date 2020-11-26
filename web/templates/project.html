@@ -1,0 +1,50 @@
+{% extends "layouts/base.html" %}
+
+{% block head %}
+	{{ super() }}
+{% endblock %}
+
+{% block title %}
+	{% if new %}{{current_user.name}} - New Project
+	{% else %}Project - {{ project.name }}{% endif %}
+{% endblock %}
+
+{% block body %}
+{% if new %}
+	<h1>New Project</h1>
+	<br>
+	<form action="" method="POST" autocomplete="off">
+		{{ form.hidden_tag() }}
+		<p>
+			{{ form.name.label }}<br>
+			{{ form.name(autocomplete="off") }}
+		</p>
+		<p>
+			{{ form.language.label }}<br>
+			{{ form.language() }}
+		</p>
+
+		<p>
+			{{ form.content.label }}
+			{{ form.content() }}
+		</p>
+
+		{{ form.submit() }}
+	</form>
+{% else %}
+	{% set results = run_grade(project.content) %}
+	<h1>Project - {{ project.name }}</h1>
+	<button onclick="window.location.href='/dashboard'">Back to Dashboard</button>
+
+	<h3>Style Score:</h3>
+	<div class="color-box" style="background-color: {{ results[1] }}">{{ results[0] }}</div>
+	
+	<h3>Your Code:</h3>
+	<button onclick="toggleShow('project-content')">Show</button>
+	<pre><code style="display: none;" id="project-content">{{project.content}}</code></pre>
+
+	<h3>Styled Code:</h3>
+	<button onclick="toggleShow('fixed-content')">Show</button>
+	<pre><code style="display: none;" id="fixed-content">{{ results[-1] }}</code></pre>
+{% endif %}
+{% endblock %}

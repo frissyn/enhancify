@@ -1,0 +1,22 @@
+{% extends "layouts/base.html" %}
+
+{% block title %}enhancify{% endblock %}
+
+{% block body %}
+	<h1><code>enhancify</code></h1>
+
+	{% if current_user.is_authenticated %}
+		<button class="btn" onclick="window.location.href='/dashboard'">Dashboard</button>
+		<button class="btn" onclick="window.location.href='/logout'">Logout</button>
+	{% else %}
+		<button onclick="window.location.href='/login'">Get Started!</button>
+	{% endif %}
+	<button id="switch" class="btn" onclick="toggleTheme()">Switch Theme</button>
+
+	<br>
+	<p>
+ 	Created for <a href="//repl.it">Repl.it</a>'s 10th Code Jam, enhancify grades the quality of your code based on style
+	and auto formats it for the best looking code! Made with love by <a href="//github.com/IreTheKID">IreTheKID</a>&trade;
+	</p>
+
+{% endblock %}

@@ -1,0 +1,20 @@
+{% extends "layouts/base.html" %}
+
+{% block head %}
+	{{ super() }}
+	{% if replname and replid %}
+		<meta http-equiv="refresh" content="0;/">
+	{% endif %} 
+{% endblock %}
+
+{% block body %}
+	<h1>Choose a Login Method</h1>
+
+	<div>
+	<script authed="location.reload()" src="static/js/replauth.js"></script>
+	</div>
+	
+	<button class="btn" onclick="window.location.href='{{ dlink }}'">
+		Login via Discord
+	</button>
+{% endblock %}

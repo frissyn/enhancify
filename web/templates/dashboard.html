@@ -1,0 +1,14 @@
+{% extends "layouts/base.html" %}
+
+{% block body %}
+<h1>{{current_user.name}}'s Dashboard</h1>
+<button onclick="window.location.href='/new-project'">New Project!</button>
+<h2>Your Projects</h2>
+{% if current_user.projects %}
+	{% for p in current_user.projects %}
+	<a href="/project/{{p.id}}">{{p.name}}</a><br>
+	{% endfor %}
+{% else %}
+	<p>You don't have any projects! Click <a href="/new-project">here</a> to create one!</p>
+{% endif %}
+{% endblock %}
