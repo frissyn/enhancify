@@ -46,27 +46,26 @@ class GUID(TypeDecorator):
 
 
 class User(db.Model, UserMixin):
-	id = db.Column(db.String, primary_key=True)
-	id_type = db.Column(db.String(18), nullable=False)
+    id = db.Column(db.String, primary_key=True)
+    id_type = db.Column(db.String(18), nullable=False)
 
-	pfp = db.Column(db.String)
-	name = db.Column(db.String(32), nullable=False)
-	join_date = db.Column(db.DateTime, default=datetime.datetime.utcnow())
-	
-	projects = db.relationship("Project", backref="user", lazy=True)
+    pfp = db.Column(db.String)
+    name = db.Column(db.String(32), nullable=False)
+    join_date = db.Column(db.DateTime, default=datetime.datetime.utcnow())
 
-	def __repr__(self):
-		return f"<User @id:{self.id}, @name:{self.name}>"
+    projects = db.relationship("Project", backref="user", lazy=True)
+
+    def __repr__(self):
+        return f"<User @id:{self.id}, @name:{self.name}>"
 
 
 class Project(db.Model):
-	id = db.Column(db.Integer, primary_key=True)
-	name = db.Column(db.String, nullable=False)
-	language = db.Column(db.String, nullable=False)
-	content = db.Column(db.String, nullable=False)
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String, nullable=False)
+    language = db.Column(db.String, nullable=False)
+    content = db.Column(db.String, nullable=False)
 
-	user_id = db.Column(db.String, db.ForeignKey("user.id"), nullable=False)
+    user_id = db.Column(db.String, db.ForeignKey("user.id"), nullable=False)
 
-	def __repr__(self):
-		return f"<Project @user_id:{self.user_id}>"
-
+    def __repr__(self):
+        return f"<Project @user_id:{self.user_id}>"

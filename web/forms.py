@@ -9,14 +9,8 @@ from wtforms.validators import DataRequired
 
 
 class NewProject(FlaskForm):
-	name = StringField("Project Name", validators=[DataRequired()])
-	language = SelectField(
-		"Programming Language",
-		choices=[
-			('python', 'Python-3')
-		]
-	)
+    name = StringField("Project Name", validators=[DataRequired()])
+    language = SelectField("Programming Language", choices=[("python", "Python-3")])
 
-	content = TextAreaField("Paste Code", validators=[DataRequired()])
-	submit = SubmitField("Create")
-
+    content = TextAreaField("Paste Code", validators=[DataRequired()])
+    submit = SubmitField("Create")

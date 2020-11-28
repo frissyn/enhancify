@@ -17,64 +17,63 @@ client = WebApplicationClient(CLIENT_ID)
 
 
 def create_state(payload: dict, expiration: int):
-	s = JWS(TOKEN, expiration*60)
-	raw_state = s.dumps(payload).decode('utf-8')
+    s = JWS(TOKEN, expiration * 60)
+    raw_state = s.dumps(payload).decode("utf-8")
 
-	return raw_state
+    return raw_state
 
 
 def parse_state(raw_state: str):
-	s = JWS(TOKEN)
-	try:
-		state = s.loads(raw_state)
-		return state
-	except:
-		return None
+    s = JWS(TOKEN)
+    try:
+        state = s.loads(raw_state)
+        return state
+    except:
+        return None
+
 
 def get_request_uri(state=None):
-	uri = client.prepare_request_uri(
+    uri = client.prepare_request_uri(
         "https://discord.com/api/oauth2/authorize",
         redirect_uri="https://cj-10.irethekid.repl.co/login-discord-callback",
         scope=SCOPES,
-		state=state
-	)
-	return uri
+        state=state,
+    )
+    return uri
 
 
 def exchange_code(code: str):
-	data = {
-		'client_id': CLIENT_ID,
-		'client_secret': CLIENT_SECRET,
-		'grant_type': 'authorization_code',
-		'code': code,
-		'redirect_uri': "https://cj-10.irethekid.repl.co/login-discord-callback",
-		'scope': 'identify'
-	}
-	headers = {'Content-Type': 'application/x-www-form-urlencoded'}
+    data = {
+        "client_id": CLIENT_ID,
+        "client_secret": CLIENT_SECRET,
+        "grant_type": "authorization_code",
+        "code": code,
+        "redirect_uri": "https://cj-10.irethekid.repl.co/login-discord-callback",
+        "scope": "identify",
+    }
+    headers = {"Content-Type": "application/x-www-form-urlencoded"}
 
-	r = requests.post(
-		'https://discord.com/api/v8/oauth2/token', data=data, headers=headers
-	)
-	r.raise_for_status()
-	return r.json()
+    r = requests.post(
+        "https://discord.com/api/v8/oauth2/token", data=data, headers=headers
+    )
+    r.raise_for_status()
+    return r.json()
 
 
 def parse_token(token_json: dict):
-	parsed = client.parse_request_body_response(json.dumps(token_json))
-	return parsed
+    parsed = client.parse_request_body_response(json.dumps(token_json))
+    return parsed
 
 
 def access_endpoint(endpoint, method, ttype="", token="", data=None):
-	head = {
-		"Content-Type" : "application/json",
-		"X-Requested-With" : "XMLHttpRequest",
-		"Accept-Charset": "application/x-www-form-urlencoded; charset=UTF-8",
-		"Authorization" : f"{ttype} {token}" if ttype else ""
-	}
+    head = {
+        "Content-Type": "application/json",
+        "X-Requested-With": "XMLHttpRequest",
+        "Accept-Charset": "application/x-www-form-urlencoded; charset=UTF-8",
+        "Authorization": f"{ttype} {token}" if ttype else "",
+    }
 
-	r = requests.request(
-		method, f"{API_ENDPOINT}{endpoint}", headers=head, data=data
-	)
+    r = requests.request(method, f"{API_ENDPOINT}{endpoint}", headers=head, data=data)
 
-	r.raise_for_status()
-	return r.json()
+    r.raise_for_status()
+    return r.json()
