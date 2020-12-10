@@ -6,4 +6,4 @@ Time Limit: 48 hours
 Time Used: 14 hours
 
 
-Link: [https://cj-10.irethekid.repl.co/](https://cj-10.irethekid.repl.co/)
+Link: ~~[https://cj-10.irethekid.repl.co/](https://cj-10.irethekid.repl.co/)~~ Broken, no longer maintained :(
